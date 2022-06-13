@@ -9,7 +9,6 @@ export default function GridNode(props) {
   };
 
   function changeContentToInitialOrFinal() {
-    props.colorBoard(props.x, props.y, false);
     if (props.content === "isEmpty") {
       props.alterBoard(props.x, props.y, "isEmpty");
     } else if (props.content === "isStart") {
