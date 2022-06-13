@@ -2,39 +2,25 @@ import React, { useState } from 'react'
 import './GridNode.css';
 
 export default function GridNode(props) {
-  const [content, setContent] = useState("empty");
-
   function changeContentToWall() {
-    setContent(prevContent => {
-      if (prevContent === "empty") {
-        setContent("wall");
-      } else if (prevContent === "wall") {
-        setContent("empty");
-      } else {
-        setContent(prevContent);
-      }
-    });
-  }
+    if (props.content === "isEmpty" || props.content === "isWall") {
+      props.alterBoard(props.x, props.y, "isWall");
+    }
+  };
 
   function changeContentToInitialOrFinal() {
-    setContent(prevContent => {
-      if (prevContent === "empty") {
-        if (props.parentState === "initial") {
-          setContent("start-node");
-        } else if (props.parentState === "final") {
-          setContent("end-node");
-        } else {
-          setContent(prevContent);
-        }
-        props.setParentState();
-      } else {
-        setContent(prevContent);
-      }
-    });
-  }
+    props.colorBoard(props.x, props.y, false);
+    if (props.content === "isEmpty") {
+      props.alterBoard(props.x, props.y, "isEmpty");
+    } else if (props.content === "isStart") {
+      props.alterBoard(props.x, props.y, "isStart");
+    } else if (props.content === "isEnd") {
+      props.alterBoard(props.x, props.y, "isEnd");
+    }
+  };
 
   return (
-    <div className={"grid-node " + content} onClick={changeContentToInitialOrFinal} onContextMenu={e => {
+    <div className={"grid-node " + props.content} onClick={changeContentToInitialOrFinal} onContextMenu={e => {
       e.preventDefault();
       changeContentToWall();
     }}></div>
