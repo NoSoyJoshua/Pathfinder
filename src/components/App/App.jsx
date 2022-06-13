@@ -103,7 +103,7 @@ function App() {
     <div className="App">
       <Header>
         <Logo data={"Pathfinder"}/>
-        <DropDownHead name="Algorithms" listItems={["Brenda", "Joshua", "Luis"]} />
+        <DropDownHead name="Algorithms" listItems={["DFS", "BFS", "Dijkstra", "AStar"]} />
         <StartButton onClick={handleStart}/>
         <DropDownHead name="Speed" listItems={["Slow", "Normal", "Fast"]} />
         <Logo data={"Visualizer"}/>
