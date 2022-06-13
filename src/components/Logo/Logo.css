@@ -1,5 +1,8 @@
 h1 {
-    color: #FDFFFC;
+    color: var(--light-color);
     font-weight: 900;
-    /* margin-right: auto; */
+}
+
+h1:hover {
+    color: var(--tertiary-color);
 }

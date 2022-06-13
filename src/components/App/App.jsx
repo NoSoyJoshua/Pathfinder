@@ -72,6 +72,33 @@ function App() {
     }
   }
 
+  function clearPath() {
+    let newBoard = [...board];
+    newBoard.forEach(row => row.forEach(node => {
+      node.isStart = false;
+      node.isEnd = false;
+    }));
+    setBoard(newBoard);
+  }
+
+  function clearBoard() {
+    let newBoard = [...board];
+    newBoard.forEach(row => row.forEach(node => {
+      node.isStart = false;
+      node.isEnd = false;
+      node.isWall = false;
+    }));
+    setBoard(newBoard);
+  }
+
+  function clearWalls() {
+    let newBoard = [...board];
+    newBoard.forEach(row => row.forEach(node => {
+      node.isWall = false;
+    }));
+    setBoard(newBoard);
+  }
+
   return (
     <div className="App">
       <Header>
@@ -79,13 +106,13 @@ function App() {
         <DropDownHead name="Algorithms" listItems={["Brenda", "Joshua", "Luis"]} />
         <StartButton onClick={handleStart}/>
         <DropDownHead name="Speed" listItems={["Slow", "Normal", "Fast"]} />
-        <Logo data={"Joshua Quesada"}/>
+        <Logo data={"Visualizer"}/>
       </Header>
       <Main>
         <ClearButtonsContainer>
-          <ClearButton data="Path"/>
-          <ClearButton data="Board"/>
-          <ClearButton data="Walls"/>
+          <ClearButton data="Path" clearingFunction={clearPath}/>
+          <ClearButton data="Board" clearingFunction={clearBoard}/>
+          <ClearButton data="Walls" clearingFunction={clearWalls}/>
         </ClearButtonsContainer>
         <GridContainer>
           <GridBoard started={start} board={board} alterBoard={alterBoard}/>
