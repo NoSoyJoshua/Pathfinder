@@ -1,0 +1,15 @@
+.clear-button {
+    display: inline-block;
+    position: relative;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    background-color: #E71D36;
+    color: #FDFFFC;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.clear-button:hover {
+    transform: scale(1.1, 1.1);
+}

@@ -1,0 +1,19 @@
+.grid-node {
+    background-color: #FDFFFC;
+}
+
+.grid-node:hover {
+    background-color: #FF9F1C;
+}
+
+.wall {
+    background-color: #011627;
+}
+
+.start-node {
+    background-color: green;
+}
+
+.end-node {
+    background-color: red;
+}

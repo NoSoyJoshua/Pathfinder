@@ -1,0 +1,8 @@
+.grid {
+    --node-size: calc((90vw - 70px) / 34);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, var(--node-size));
+    grid-gap: 2px;
+    grid-auto-rows: var(--node-size);
+}

@@ -1,0 +1,7 @@
+.grid-container {
+    width: 90vw;
+    height: calc((((90vw - 70px) / 34) * 13) + 28px);
+    /* height: 75vh; */
+    background-color: #011627;
+    padding: 2px;
+}
