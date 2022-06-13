@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Logo from '../Logo/Logo';
-import DropDownMenu from '../DropDownMenu/DropDownMenu';
+import DropDownHead from '../DropDownHead/DropDownHead';
 import StartButton from '../StartButton/StartButton';
-import DarkmodeButton from '../DarkmodeButton/DarkmodeButton';
 import Main from '../Main/Main';
 import ClearButtonsContainer from '../ClearButtonsContainer/ClearButtonsContainer'
 import ClearButton from '../ClearButton/ClearButton';
@@ -21,11 +20,11 @@ function App() {
   return (
     <div className="App">
       <Header>
-        <Logo />
-        <DropDownMenu name="Algorithms" />
+        <Logo data={"Pathfinder"}/>
+        <DropDownHead name="Algorithms" listItems={["Brenda", "Joshua", "Luis"]} />
         <StartButton onClick={handleStart}/>
-        <DropDownMenu name="Speed"/>
-        <DarkmodeButton />
+        <DropDownHead name="Speed" listItems={["Slow", "Normal", "Fast"]} />
+        <Logo data={"Joshua Quesada"}/>
       </Header>
       <Main>
         <ClearButtonsContainer>

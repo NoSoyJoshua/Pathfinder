@@ -1,3 +1,20 @@
-.dropdown-menu {
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 110%;
     font-size: 1.5rem;
+    padding: 0.5rem 2rem;
+    background-color: var(--dark-color);
+    border-radius: 2.5px;
+    transition: filter 0.3s ease-in-out;
+    filter: brightness(1.4)
 }
+
+.dropdown-item:hover {
+    color: var(--tertiary-color);
+}
+
