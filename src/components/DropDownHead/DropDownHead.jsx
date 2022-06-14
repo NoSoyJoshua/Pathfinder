@@ -15,7 +15,7 @@ export default function DropDownHead(props) {
     <div className="dropdown-menu" onClick={() => setOpen(!open)}>
       {selected} <i className="fa-solid fa-caret-down"></i>
       
-      {open && <DropDownMenu listItems={props.listItems} onChange={setSelected}/>}
+      {open && <DropDownMenu handleSpeed={props.handleSpeed} listItems={props.listItems} onChange={setSelected}/>}
 
     </div>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import Logo from '../Logo/Logo';
 import DropDownHead from '../DropDownHead/DropDownHead';
@@ -10,6 +10,8 @@ import GridContainer from '../GridContainer/GridContainer';
 import GridBoard from '../GridBoard/GridBoard';
 import './App.css';
 
+import dfs from "../../algorithms/dfs";
+
 let gridBoard = [];
 for (let i = 0; i < 13; i++) {
     let row = [];
@@ -19,7 +21,8 @@ for (let i = 0; i < 13; i++) {
           y: i,
           isStart: false,
           isEnd: false,
-          isWall: false
+          isWall: false,
+          isSeen: false
         };
         row.push(node);
     }
@@ -28,14 +31,42 @@ for (let i = 0; i < 13; i++) {
 
 function App() {
   const [start, setStart] = useState(false);
+  const [speed, setSpeed] = useState(200);
   const [board, setBoard] = useState(gridBoard);
+  const [stack , setStack] = useState([]);
+  const [algorithm, setAlgorithm] = useState("dfs");
 
-  console.log(board);
+  useEffect( () => {
+    drawBoard();
+  }, [stack])
+
+  function visualizeDFS() {
+    let startAndEnd = findStartAndEnd()
+    console.log(startAndEnd[0], startAndEnd[1]);
+    if (startAndEnd[0] !== [] && startAndEnd[1] !== []) {
+      let newStack = dfs(board, startAndEnd[0][0].x, startAndEnd[0][0].y);
+      setStack(() => newStack);
+    }
+  }
+  
+  function drawBoard() {
+    let i = 0;
+    let myInterval = setInterval( () => {
+      if (i < stack.length) {
+        let x = stack[i][0];
+        let y = stack[i][1];
+        let newBoard = [...board];
+        newBoard[y][x].isSeen = true;
+        setBoard(newBoard);
+        i++;
+      }
+    }, speed);
+  }
 
   function findStartAndEnd() {
     let start = [];
     let end = [];
-
+    
     board.forEach(row => row.forEach(node => {
       if (node.isStart) {
         start.push(node);
@@ -43,20 +74,22 @@ function App() {
         end.push(node);
       }
     }));
-
+    
     return ([start, end]);
   }
-
+  
   function handleStart() {
     setStart(!start);
+    if (stack) {
+      visualizeDFS();
+    }
   }
-
+  
   function alterBoard(x, y, type) {
     let newBoard = [...board];
-
+    
     if (type === "isEmpty") {
       let boardEnds = findStartAndEnd();
-      console.log(boardEnds);
       if (boardEnds[0].length === 0) {
         newBoard[y][x].isStart = true;
         setBoard(newBoard);
@@ -99,13 +132,25 @@ function App() {
     setBoard(newBoard);
   }
 
+  function handleSpeed(text) {
+    if (text === "Slow") {
+      setSpeed(200);
+    } else if (text === "Normal") {
+      setSpeed(100);
+    } else if (text === "Fast") {
+      setSpeed(50);
+    } else {
+      setSpeed(25);
+    }
+  }
+
   return (
     <div className="App">
       <Header>
         <Logo data={"Pathfinder"}/>
         <DropDownHead name="Algorithms" listItems={["DFS", "BFS", "Dijkstra", "AStar"]} />
         <StartButton onClick={handleStart}/>
-        <DropDownHead name="Speed" listItems={["Slow", "Normal", "Fast"]} />
+        <DropDownHead name="Speed" handleSpeed={handleSpeed} listItems={["Slow", "Normal", "Fast", "Really Fast"]} />
         <Logo data={"Visualizer"}/>
       </Header>
       <Main>
@@ -123,3 +168,4 @@ function App() {
 }
 
 export default App;
+export { gridBoard };

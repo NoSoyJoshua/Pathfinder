@@ -5,13 +5,16 @@ export default function DropDownMenu(props) {
     
     function DropDownItem(props) {
         return (
-            <p href="#" className="dropdown-item" onClick={e => props.onChange(e.currentTarget.innerText)}>{props.name}</p>
+            <p href="#" className="dropdown-item" onClick={e => {
+                props.onChange(e.currentTarget.innerText)
+                props.handleSpeed(e.currentTarget.innerText)
+            }}>{props.name}</p>
         )
     }
 
     return (
         <div className='dropdown'>
-            {props.listItems.map(item => <DropDownItem key={item} name={item} onChange={props.onChange}/>)}
+            {props.listItems.map(item => <DropDownItem key={item} name={item} onChange={props.onChange} handleSpeed={props.handleSpeed}/>)}
         </div>
     )
 }

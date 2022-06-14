@@ -1,12 +1,27 @@
 .grid-node {
     background-color: #FDFFFC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-node > * {
+    display: none;
 }
 
 .grid-node:hover {
     background-color: #FF9F1C;
 }
 
+.isStart, .isEnd {
+    background-color: var(--tertiary-color);
+}
+
 .isWall {
+    background-color: var(--primary-color);
+} 
+
+/* .isWall {
     background-color: #011627;
 }
 
@@ -16,4 +31,14 @@
 
 .isEnd {
     background-color: red;
+} */
+
+:not(.isStart, .isEnd).isSeen {
+    background-color: var(--secondary-color);
 }
+
+.grid-node > .isStart, .grid-node > .isEnd, .grid-node > .isWall {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+

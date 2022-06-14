@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './GridNode.css';
 
 export default function GridNode(props) {
@@ -19,9 +19,11 @@ export default function GridNode(props) {
   };
 
   return (
-    <div className={"grid-node " + props.content} onClick={changeContentToInitialOrFinal} onContextMenu={e => {
+    <div className={"grid-node " + props.content + " " + props.seen} onClick={changeContentToInitialOrFinal} onContextMenu={e => {
       e.preventDefault();
       changeContentToWall();
-    }}></div>
+    }}>
+      {props.content === "isStart" ? <i className={"fa-solid fa-play " + props.content}></i> : props.content === "isEnd" ? <i className={"fa-solid fa-flag-checkered " + props.content}></i> : props.content === "isWall" ? <i className={"fa-solid fa-ghost " + props.content}></i> : ""}
+    </div>
   )
 }
