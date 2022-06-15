@@ -25,32 +25,56 @@ for (let i = 0; i < 13; i++) {
           isSeen: false
         };
         row.push(node);
-    }
-    gridBoard.push(row);
+      }
+      gridBoard.push(row);
 }
 
 function App() {
   const [start, setStart] = useState(false);
-  const [speed, setSpeed] = useState(200);
+  const [speed, setSpeed] = useState(100);
   const [board, setBoard] = useState(gridBoard);
   const [stack , setStack] = useState([]);
   const [algorithm, setAlgorithm] = useState("dfs");
-
+  
   useEffect( () => {
     drawBoard();
   }, [stack])
+  
+  function handleStart() {
+    clearPath();
+    setStart(true);
+    if (stack) {
+      console.log("Hello")
+      visualizeDFS();
+    }
+  }
+  
+  function handleSpeed(text) {
+    if (text === "Slow") {
+      setSpeed(200);
+    } else if (text === "Normal") {
+      setSpeed(100);
+    } else if (text === "Fast") {
+      setSpeed(50);
+    } else {
+      setSpeed(25);
+    }
+  }
 
   function visualizeDFS() {
     let startAndEnd = findStartAndEnd()
-    console.log(startAndEnd[0], startAndEnd[1]);
+    console.log(startAndEnd);
     if (startAndEnd[0] !== [] && startAndEnd[1] !== []) {
-      let newStack = dfs(board, startAndEnd[0][0].x, startAndEnd[0][0].y);
+      let newStack = dfs(board, startAndEnd[0][0].x, startAndEnd[0][0].y, true);
+      console.log(newStack);
       setStack(() => newStack);
     }
   }
   
   function drawBoard() {
     let i = 0;
+    console.log(stack);
+    if (!stack) return;
     let myInterval = setInterval( () => {
       if (i < stack.length) {
         let x = stack[i][0];
@@ -59,6 +83,11 @@ function App() {
         newBoard[y][x].isSeen = true;
         setBoard(newBoard);
         i++;
+      }
+      if (i === stack.length) {
+        clearInterval(myInterval);
+        setStart(false);
+        console.log(stack);
       }
     }, speed);
   }
@@ -78,14 +107,12 @@ function App() {
     return ([start, end]);
   }
   
-  function handleStart() {
-    setStart(!start);
-    if (stack) {
-      visualizeDFS();
-    }
-  }
-  
   function alterBoard(x, y, type) {
+    if (start) return;
+
+    setStack([]);
+    clearPath();
+    console.log(stack);
     let newBoard = [...board];
     
     if (type === "isEmpty") {
@@ -106,42 +133,34 @@ function App() {
   }
 
   function clearPath() {
+    if (start) return;
     let newBoard = [...board];
     newBoard.forEach(row => row.forEach(node => {
-      node.isStart = false;
-      node.isEnd = false;
+      node.isSeen = false;
     }));
     setBoard(newBoard);
   }
 
   function clearBoard() {
+    if (start) return;
     let newBoard = [...board];
     newBoard.forEach(row => row.forEach(node => {
       node.isStart = false;
       node.isEnd = false;
       node.isWall = false;
+      node.isSeen = false;
     }));
     setBoard(newBoard);
   }
 
   function clearWalls() {
+    if (start) return;
     let newBoard = [...board];
     newBoard.forEach(row => row.forEach(node => {
       node.isWall = false;
+      node.isSeen = false;
     }));
     setBoard(newBoard);
-  }
-
-  function handleSpeed(text) {
-    if (text === "Slow") {
-      setSpeed(200);
-    } else if (text === "Normal") {
-      setSpeed(100);
-    } else if (text === "Fast") {
-      setSpeed(50);
-    } else {
-      setSpeed(25);
-    }
   }
 
   return (
