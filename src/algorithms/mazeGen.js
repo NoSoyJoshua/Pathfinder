@@ -1,5 +1,3 @@
-import { cleanup } from "@testing-library/react";
-
 let tempBoard, wholePath;
 
 export default function mazeGen(board, boardDimX, boardDimY, root) {
@@ -51,6 +49,10 @@ export default function mazeGen(board, boardDimX, boardDimY, root) {
             emptyNodes.push(boardDimY[1]);
         }
 
+        if (emptyNodes.length > 1) {
+            emptyNodes.shift()
+        }
+
         for (let i = boardDimY[0]; i <= boardDimY[1]; i++) {
             let notEmpty = true;
             for (let j = 0; j < emptyNodes.length; j++) {
@@ -86,6 +88,10 @@ export default function mazeGen(board, boardDimX, boardDimY, root) {
             emptyNodes.push(boardDimX[1]);
         }
 
+        if (emptyNodes.length > 1) {
+            emptyNodes.shift()
+        }
+        
         for (let i = boardDimX[0]; i <= boardDimX[1]; i++) {
             let notEmpty = true;
             for (let j = 0; j < emptyNodes.length; j++) {
