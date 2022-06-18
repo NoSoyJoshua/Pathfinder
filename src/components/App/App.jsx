@@ -101,7 +101,7 @@ function App() {
   }
 
   function handleInstructionChange(num) {
-    if (currentInstruction + num >= 0 && currentInstruction + num < 3) {
+    if (currentInstruction + num >= 0 && currentInstruction + num < 4) {
       setCurrentInstruction(currentInstruction + num);
     }
   }
