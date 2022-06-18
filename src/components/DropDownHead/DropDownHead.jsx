@@ -4,11 +4,11 @@ import './DropDownHead.css'
 
 export default function DropDownHead(props) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(props.name);
+  const [selected, setSelected] = useState("");
 
   return (
     <div className="dropdown-menu" onClick={() => setOpen(!open)}>
-      {selected} <i className="fa-solid fa-caret-down"></i>
+      {selected || props.name} <i className="fa-solid fa-caret-down"></i>
       
       {open && <DropDownMenu changeParentState={props.changeParentState} listItems={props.listItems} onChange={setSelected}/>}
 

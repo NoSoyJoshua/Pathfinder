@@ -9,6 +9,7 @@ import ClearButtonsContainer from '../ClearButtonsContainer/ClearButtonsContaine
 import ClearButton from '../ClearButton/ClearButton';
 import GridContainer from '../GridContainer/GridContainer';
 import GridBoard from '../GridBoard/GridBoard';
+import InstructionsContainer from '../InstructionsContainer/InstructionsContainer';
 
 import WindowWarning from '../WindowWarning/WindowWarning';
 
@@ -17,6 +18,11 @@ import './App.css';
 import dfs from "../../algorithms/dfs";
 import bfs from "../../algorithms/bfs";
 import mazeGen from "../../algorithms/mazeGen";
+
+import {englishNavbarOptions, englishClearButtonOptions} from "../../languageOptions/english";
+import {spanishNavbarOptions, spanishClearButtonOptions} from "../../languageOptions/spanish";
+import {englishInstructionsTitles, englishInstructions} from "../../languageOptions/english";
+import {spanishInstructionsTitles, spanishInstructions} from "../../languageOptions/spanish";
 
 let gridBoard = [];
 for (let i = 0; i < 15; i++) {
@@ -38,6 +44,16 @@ for (let i = 0; i < 15; i++) {
 
 function App() {
   const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  const [language, setLanguage] = useState("english");
+  const [navbarOptions, setNavbarOptions] = useState(englishNavbarOptions);
+  const [clearButtonOptions, setClearButtonOptions] = useState(englishClearButtonOptions);
+
+  const [openInstructions, setOpenInstructions] = useState(true);
+  const [currentInstruction, setCurrentInstruction] = useState(0);
+  const [instructionsTitles, setInstructionsTitles] = useState(englishInstructionsTitles);
+  const [instructions, setInstructions] = useState(englishInstructions);
+
   const [start, setStart] = useState(false);
   const [speed, setSpeed] = useState(50);
   const [board, setBoard] = useState(gridBoard);
@@ -45,6 +61,20 @@ function App() {
   const [mazePath, setMazePath] = useState([]);
   const [path, setPath] = useState([]);
   const [algorithm, setAlgorithm] = useState("dfs");
+
+  useEffect(() => {
+    if (language === "english") {
+      setNavbarOptions(englishNavbarOptions);
+      setClearButtonOptions(englishClearButtonOptions);
+      setInstructionsTitles(englishInstructionsTitles);
+      setInstructions(englishInstructions);
+    } else {
+      setNavbarOptions(spanishNavbarOptions);
+      setClearButtonOptions(spanishClearButtonOptions);
+      setInstructionsTitles(spanishInstructionsTitles);
+      setInstructions(spanishInstructions);
+    }
+  }, [language]);
   
   useEffect(() => {
     function handleWindowResize() {
@@ -66,6 +96,16 @@ function App() {
     drawMaze();
   }, [mazePath])
   
+  function handleLanguage(text) {
+    setLanguage(text.toLowerCase());
+  }
+
+  function handleInstructionChange(num) {
+    if (currentInstruction + num >= 0 && currentInstruction + num < 3) {
+      setCurrentInstruction(currentInstruction + num);
+    }
+  }
+
   function handleStart() {
     if (!start) {
       clearPath();
@@ -87,11 +127,11 @@ function App() {
   }
   
   function handleSpeed(text) {
-    if (text === "Slow") {
+    if (text === navbarOptions.speedOptions[0]) {
       setSpeed(200);
-    } else if (text === "Normal") {
+    } else if (text === navbarOptions.speedOptions[1]) {
       setSpeed(100);
-    } else if (text === "Fast") {
+    } else if (text === navbarOptions.speedOptions[2]) {
       setSpeed(50);
     }
   }
@@ -269,19 +309,20 @@ function App() {
     <div className="App">
         {windowSize.innerWidth >= 1360 ? (
           <>
+            {openInstructions && <InstructionsContainer instructions={[instructionsTitles, instructions]} instructionNumber={currentInstruction} onLanguageChange={handleLanguage} onClosure={() => setOpenInstructions(false)} onInstructionChange={handleInstructionChange}/>}
             <Header>
               <Logo data="Pathfinder"/>
-              <DropDownHead name="Algorithms" changeParentState={handleAlgorithm} listItems={["DFS", "BFS"/*, "Dijkstra", "AStar"*/]} />
-              <DropDownHead name="Speed" changeParentState={handleSpeed} listItems={["Slow", "Normal", "Fast"]} />
-              <GenericButton name="Maze" onClick={handleMazeButton}/>
-              <StartButton onClick={handleStart}/>
+              <DropDownHead name={navbarOptions.algoTitle} changeParentState={handleAlgorithm} listItems={navbarOptions.algoOptions} />
+              <DropDownHead name={navbarOptions.speedTitle} changeParentState={handleSpeed} listItems={navbarOptions.speedOptions} />
+              <GenericButton name={navbarOptions.mazeTitle} onClick={handleMazeButton}/>
+              <StartButton name={navbarOptions.startTitle} onClick={handleStart}/>
               <Logo data={"Visualizer"}/>
             </Header>
             <Main>
               <ClearButtonsContainer>
-                <ClearButton data="Path" clearingFunction={clearPath}/>
-                <ClearButton data="Board" clearingFunction={clearBoard}/>
-                <ClearButton data="Walls" clearingFunction={clearWalls}/>
+                <ClearButton data={clearButtonOptions.clearTitle + " " + clearButtonOptions.pathTitle} clearingFunction={clearPath}/>
+                <ClearButton data={clearButtonOptions.clearTitle + " " + clearButtonOptions.boardTitle} clearingFunction={clearBoard}/>
+                <ClearButton data={clearButtonOptions.clearTitle + " " + clearButtonOptions.wallsTitle} clearingFunction={clearWalls}/>
               </ClearButtonsContainer>
               <GridContainer>
                 <GridBoard started={start} board={board} alterBoard={alterBoard}/>

@@ -3,6 +3,6 @@ import './StartButton.css';
 
 export default function StartButton(props) {
   return (
-    <div className="start-button" onClick={props.onClick}>Start!</div>
+    <div className="start-button" onClick={props.onClick}>{props.name}</div>
   )
 }
