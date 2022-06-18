@@ -19,10 +19,8 @@ import dfs from "../../algorithms/dfs";
 import bfs from "../../algorithms/bfs";
 import mazeGen from "../../algorithms/mazeGen";
 
-import {englishNavbarOptions, englishClearButtonOptions} from "../../languageOptions/english";
-import {spanishNavbarOptions, spanishClearButtonOptions} from "../../languageOptions/spanish";
-import {englishInstructionsTitles, englishInstructions} from "../../languageOptions/english";
-import {spanishInstructionsTitles, spanishInstructions} from "../../languageOptions/spanish";
+import {englishNavbarOptions, englishClearButtonOptions, englishInstructionsTitles, englishInstructions, englishWindowError} from "../../languageOptions/english";
+import {spanishNavbarOptions, spanishClearButtonOptions, spanishInstructionsTitles, spanishInstructions, spanishWindowError} from "../../languageOptions/spanish";
 
 let gridBoard = [];
 for (let i = 0; i < 15; i++) {
@@ -54,6 +52,8 @@ function App() {
   const [instructionsTitles, setInstructionsTitles] = useState(englishInstructionsTitles);
   const [instructions, setInstructions] = useState(englishInstructions);
 
+  const [error, setError] = useState(englishWindowError);
+
   const [start, setStart] = useState(false);
   const [speed, setSpeed] = useState(50);
   const [board, setBoard] = useState(gridBoard);
@@ -68,11 +68,13 @@ function App() {
       setClearButtonOptions(englishClearButtonOptions);
       setInstructionsTitles(englishInstructionsTitles);
       setInstructions(englishInstructions);
+      setError(englishWindowError);
     } else {
       setNavbarOptions(spanishNavbarOptions);
       setClearButtonOptions(spanishClearButtonOptions);
       setInstructionsTitles(spanishInstructionsTitles);
       setInstructions(spanishInstructions);
+      setError(spanishWindowError);
     }
   }, [language]);
   
@@ -329,7 +331,7 @@ function App() {
               </GridContainer>
             </Main>
           </> ) : (
-            <WindowWarning />
+            <WindowWarning error={error} />
           )}
       </div>
     )

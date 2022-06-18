@@ -27,3 +27,8 @@ export const englishInstructions = {
     3: "You can do some research about the algorithms DFS, also known as Depth First Search; and BFS, known as Breadth First Search in the following link:",
     4: "https://www.geeksforgeeks.org/difference-between-bfs-and-dfs/"
 }
+
+export const englishWindowError = {
+    errorTitle: "Window Error!",
+    errorContent: "The content of this page cannot be displayed in a screen with a width smaller than 1360px"
+}

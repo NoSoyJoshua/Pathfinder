@@ -27,3 +27,8 @@ export const spanishInstructions = {
     3: "Puedes investigar sobre los algoritmos DFS, también conocido como Búsqueda en Profundidad; y BFS, conocido como Búsqueda en anchura en el siguiente enlace:",
     4: "https://www.encora.com/es/blog/dfs-vs-bfs"
 }
+
+export const spanishWindowError = {
+    errorTitle: "¡Error de ventana!",
+    errorContent: "El contenido de esta página no se puede mostrar en una pantalla con un ancho inferior a 1360px"
+}

@@ -42,7 +42,7 @@ export default function InstructionsContainer(props) {
                     <>
                         <h1>{props.instructions[0][props.instructionNumber]}</h1>
                         <p>{props.instructions[1][props.instructionNumber]}</p>
-                        {props.instructionNumber === 3 && (<a>{props.instructions[1][4]}</a>)}
+                        {props.instructionNumber === 3 && (<a href={props.instructions[1][4]}>{props.instructions[1][4]}</a>)}
                     </>
                 )}
             </div>
