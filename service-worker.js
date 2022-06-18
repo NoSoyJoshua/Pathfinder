@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Pathfinder/precache-manifest.cdf5b67837128aaac6bf3e1b387c00b6.js"
+  "/Pathfinder/precache-manifest.a64bd79dbc8ee0d81f8ae31da8c1d11a.js"
 );
 
 workbox.clientsClaim();
