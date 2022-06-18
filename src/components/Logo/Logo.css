@@ -1,8 +1,8 @@
-h1 {
+.logo {
     color: var(--light-color);
     font-weight: 900;
 }
 
-h1:hover {
+.logo:hover {
     color: var(--tertiary-color);
 }

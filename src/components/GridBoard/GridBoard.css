@@ -1,5 +1,5 @@
 .grid {
-    --node-size: calc((90vw - 70px) / 34);
+    --node-size: calc((90vw - 84px) / 41);
 
     display: grid;
     grid-template-columns: repeat(auto-fill, var(--node-size));

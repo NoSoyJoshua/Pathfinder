@@ -1,5 +1,5 @@
 main {
-    width: clamp(120rem, 100%, 100%);
+    width: 100vw;
     height: clamp(50rem, 90vh, 90vh);
     display: flex;
     flex-direction: column;

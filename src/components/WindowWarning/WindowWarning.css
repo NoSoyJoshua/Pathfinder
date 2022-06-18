@@ -1,0 +1,29 @@
+.window-warning {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    background: var(--dark-color) ;
+}
+
+.error-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 1rem 5vw;
+}
+
+.error-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--light-color);
+    margin: 0 5vw;
+}
+
+.giphy-embed {
+    width: 90%;
+    border-radius: 50%;
+}

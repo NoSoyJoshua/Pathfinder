@@ -1,8 +1,10 @@
 .grid-node {
-    background-color: #FDFFFC;
+    background: var(--light-color);
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 0;
+    transition: background 100ms ease;
 }
 
 .grid-node > * {
@@ -10,35 +12,55 @@
 }
 
 .grid-node:hover {
-    background-color: #FF9F1C;
+    background: #FF9F1C;
 }
 
 .isStart, .isEnd {
-    background-color: var(--tertiary-color);
+    background: var(--tertiary-color);
 }
 
 .isWall {
-    background-color: var(--primary-color);
+    background: var(--primary-color);
 } 
 
-/* .isWall {
-    background-color: #011627;
-}
-
-.isStart {
-    background-color: green;
-}
-
-.isEnd {
-    background-color: red;
-} */
-
 :not(.isStart, .isEnd).isSeen {
-    background-color: var(--secondary-color);
+    animation: search 1s ease-in-out 1;
+    background: var(--secondary-color);
+}
+
+:not(.isStart, .isEnd).isPath {
+    animation: path 1s ease-in-out 1;
+    background: var(--tertiary-color);
 }
 
 .grid-node > .isStart, .grid-node > .isEnd, .grid-node > .isWall {
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: clamp(.5rem, 1.3vw, 3rem);
 }
 
+@keyframes path {
+    0% {
+        background: var(--light-color);
+    }
+    33% {
+        background: var(--dark-color);
+    }
+    66% {
+        background: var(--primary-color);
+    }
+    100% {
+        background: var(--tertiary-color);
+    }
+}
+
+@keyframes search {
+    0% {
+        background: var(--light-color);
+    }
+    50% {
+        background: var(--tertiary-color);
+    }
+    100% {
+        background: var(--secondary-color);
+    }
+}

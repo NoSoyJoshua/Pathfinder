@@ -1,47 +1,62 @@
-const boardSeen = [];
-for (let i = 0; i < 13; i++) {
-    let row = [];
-    for (let j = 0; j < 34; j++) {
-        row.push(false);
-    }
-    boardSeen.push(row);
-}
+import { findNeighbors } from './functions';
 
-let stack;
+let newBoard, boardSeen, wholePath, pathToEnd;
 
-let foundEnd;
-export default function dfs(board, x, y, root) {
+export default function dfs(board, startXY, endXY, root) {
+
     if (root) {
-        stack = [];
-        foundEnd = false;
-        for (let i = 0; i < 13; i++) {
-            for (let j = 0; j < 34; j++) {
-                boardSeen[i][j] = false;
+        newBoard = [...board];
+        wholePath = [];
+        pathToEnd = [];
+
+        boardSeen = [];
+        for (let i = 0; i < 15; i++) {
+            let row = [];
+            for (let j = 0; j < 41; j++) {
+                row.push(false);
             }
+            boardSeen.push(row);
         }
     }
 
-    const dx = [1,  0, -1, 0];
-    const dy = [0, -1,  0, 1];
+    let start = newBoard[startXY[1]][startXY[0]];
+    let end = newBoard[endXY[1]][endXY[0]];
 
-    if (boardSeen[y][x]) return stack;
-    stack.push([x, y]);
-    boardSeen[y][x] = true;
-
-    if (board[y][x].isEnd) {
-        foundEnd = true;
+    // Terminate if the goal is reached
+    if (startXY[0] === endXY[0] && startXY[1] === endXY[1]) {
+        return [wholePath, pathToEnd, true];
     }
 
-    if (foundEnd) return stack;
-    for (let i = 0; i < 4; i++) {
-        const nx = x + dx[i];
-        const ny = y + dy[i];
-        const condition = (ny >= 0 && ny < board.length) && (nx >= 0 && nx < board[0].length)
+    // Visite current node
+    boardSeen[start.y][start.x] = true;
 
-        if (condition && board[ny][nx].isWall === false && !boardSeen[ny][nx] && !foundEnd) {
-            dfs(board, nx, ny, false);
+    // Add current node to whole path
+    wholePath.push(start);
+
+    // Take unvisited neighbors in order
+    let neighbors = findNeighbors(start.x, start.y, newBoard, boardSeen);
+    for (let i = 0; i < neighbors.length; i++) {
+        neighbors[i].parent = start;
+
+        // Recurse and Terminate if the goal is reached
+        if (dfs(newBoard, [neighbors[i].x, neighbors[i].y], [end.x, end.y], false)[2]) {
+
+            // Backtrack
+            if (root) {
+                let currentNode = end;
+                while (currentNode.x !== start.x || currentNode.y !== start.y) {
+                    pathToEnd.push(currentNode);
+                    currentNode = currentNode.parent;
+                }
+
+                if (currentNode.x !== start.x || currentNode.y !== start.y) {
+                    pathToEnd.push(currentNode);
+                }
+            }
+
+            return [wholePath, pathToEnd, true];
         }
     }
 
-    return stack;
+    return [wholePath, pathToEnd, false];
 }
