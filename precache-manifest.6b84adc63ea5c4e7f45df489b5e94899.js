@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "4010ad171bc91e4dd408",
+    "revision": "5d45522d0e21904f5c56",
     "url": "/Pathfinder/static/css/main.c8c9d939.chunk.css"
   },
   {
-    "revision": "4010ad171bc91e4dd408",
-    "url": "/Pathfinder/static/js/main.0ddcdb87.chunk.js"
+    "revision": "5d45522d0e21904f5c56",
+    "url": "/Pathfinder/static/js/main.5d9f98b8.chunk.js"
   },
   {
     "revision": "786820783591e17d42d5",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/Pathfinder/static/js/2.9f4bff26.chunk.js"
   },
   {
-    "revision": "a9df52863eff000d078cba0d47605752",
+    "revision": "a671f3444a188dc8196bd8bbd055fce7",
     "url": "/Pathfinder/index.html"
   }
 ];
