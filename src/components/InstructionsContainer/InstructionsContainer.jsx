@@ -8,6 +8,7 @@ export default function InstructionsContainer(props) {
         function handleClick(e) {
             let text = e.target.innerText;
             props.onClick(text)
+            handleInstructionChangeRight();
         }
 
         return (

@@ -105,6 +105,8 @@ function App() {
   function handleInstructionChange(num) {
     if (currentInstruction + num >= 0 && currentInstruction + num < 4) {
       setCurrentInstruction(currentInstruction + num);
+    } else if (currentInstruction + num === 4) {
+      setOpenInstructions(false);
     }
   }
 
