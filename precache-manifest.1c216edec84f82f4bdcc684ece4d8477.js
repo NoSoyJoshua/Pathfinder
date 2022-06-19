@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/Pathfinder/static/js/2.9f4bff26.chunk.js"
   },
   {
-    "revision": "a671f3444a188dc8196bd8bbd055fce7",
+    "revision": "05ec4aa645ef2009433e28f5b5679bb9",
     "url": "/Pathfinder/index.html"
   }
 ];
